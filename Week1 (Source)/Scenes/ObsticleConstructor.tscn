@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/obsticle.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export var speed: int = 200
+export var y_pos = -100
+
+export (PackedScene) var Obsticle_Set # = preload(\"res://Scenes/obsticle.tscn\")
+var o1
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	speed = 200
+	add_obsticle()
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+func add_obsticle() -> void:
+	o1 = Obsticle_Set.instance()
+	o1.y_pos = y_pos
+	o1.speed = speed
+	add_child(o1)
+	pass
+
+func obsticle_hit():
+	o1.success_wormhole()
+	pass
+
+func end_obsticles():
+	o1.game_over()
+	speed = 0
+	pass
+
+func exited() -> void:
+	speed += 50
+	add_obsticle()
+	pass
+"
+
+[node name="Game" type="Node2D"]
+script = SubResource( 1 )
+Obsticle_Set = ExtResource( 1 )

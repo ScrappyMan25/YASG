@@ -1,0 +1,197 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Ship.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/ObsticleConstructor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/YASG.png" type="Texture" id=4]
+[ext_resource path="res://Assets/PLAY.png" type="Texture" id=5]
+[ext_resource path="res://Assets/space age.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/ColorBand.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Stars-PNG-Image.png" type="Texture" id=8]
+[ext_resource path="res://Assets/House In a Forest Loop.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/gameover.wav" type="AudioStream" id=10]
+
+[sub_resource type="Animation" id=1]
+resource_name = "move_menu_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -500 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Score:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 420, 5 ), Vector2( 420, -40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorBand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -125 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "move_menu_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -500 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Score:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 420, -40 ), Vector2( 420, 5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorBand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -125 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=5]
+
+[sub_resource type="AnimatedTexture" id=6]
+
+[sub_resource type="DynamicFont" id=7]
+size = 40
+font_data = ExtResource( 6 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+Obsticle = ExtResource( 3 )
+Ship = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/move_menu_in = SubResource( 1 )
+anims/move_menu_out = SubResource( 2 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="High_score" type="Label" parent="Node2D"]
+margin_left = 131.51
+margin_top = 242.0
+margin_right = 328.51
+margin_bottom = 280.0
+custom_fonts/font = SubResource( 3 )
+text = "HIGH : 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Last_score" type="Label" parent="Node2D"]
+margin_left = 127.244
+margin_top = 285.51
+margin_right = 332.244
+margin_bottom = 323.51
+custom_fonts/font = SubResource( 4 )
+text = "LAST: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Node2D"]
+anchor_top = -0.00104056
+anchor_bottom = -0.00104056
+margin_left = -10.0
+margin_top = 380.0
+margin_right = 490.0
+margin_bottom = 480.0
+theme = SubResource( 5 )
+icon = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PLAY" type="Sprite" parent="Node2D/Button"]
+position = Vector2( 250, 50 )
+texture = ExtResource( 5 )
+
+[node name="YASG" type="Sprite" parent="Node2D"]
+position = Vector2( 240, 162 )
+texture = ExtResource( 4 )
+
+[node name="Score" type="Label" parent="."]
+margin_left = 420.0
+margin_top = -40.0
+margin_right = 494.0
+margin_bottom = -2.0
+custom_fonts/font = SubResource( 7 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorBand" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -125 )
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="star_bg1" type="Sprite" parent="BG"]
+position = Vector2( 240, 360 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+
+[node name="star_bg2" type="Sprite" parent="BG"]
+position = Vector2( 240, 1135 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="Node2D/Button" to="." method="_on_Button_pressed"]
